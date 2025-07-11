@@ -65,199 +65,161 @@ export default function Dashboard (){
 
 
     return (
-            <View style={style.container}>
-                <Text style={style.title}>Gastos</Text>
-                <TouchableOpacity  onPress={()=>{navigation.navigate("createExpense")}}>
-                        <Text style={style.createButton}>➕</Text>
-                </TouchableOpacity>
+ <View style={styles.container}>
+      {/* Cabecera */}
+      <View style={styles.header}>
+        <Text style={styles.title}>Gastos</Text>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("createExpense")}
+          style={styles.addButton}
+        >
+          <Text style={styles.addButtonText}>+</Text>
+        </TouchableOpacity>
+      </View>
 
-                <View>
-                    <Text style={style.title}>Total Gastos de este mes</Text>
-                    <Text style={style.title}>{total}</Text>
-                </View>
+      {/* Total Gastos */}
+      <View style={styles.summaryCard}>
+        <Text style={styles.summaryTitle}>Total este mes</Text>
+        <Text style={styles.summaryAmount}>${total}</Text>
+      </View>
 
-               <ScrollView style={style.table}>
-                <Grid>
-                    <Row style={style.rowHeader}>
-                    <Col><Text style={style.headerText}>Categoria</Text></Col>
-                    <Col><Text style={style.headerText}>Descripción</Text></Col>
-                    <Col><Text style={style.headerText}>Monto</Text></Col>
-                    <Col><Text style={style.headerText}>Fecha</Text></Col>
-                    <Col><Text style={style.headerText}>Acciones</Text></Col>
-                    </Row>
-
-                    {data.map((expense, i) => (
-                    <Row
-                        key={expense.id}
-                        style={[style.row, i % 2 === 0 && style.zebraRow]}
-                    >
-                        <Col><Text style={style.colText}>{expense.category}</Text></Col>
-                        <Col><Text style={style.colText}>{expense.description}</Text></Col>
-                        <Col><Text style={style.colText}>{expense.amount}</Text></Col>
-                        <Col><Text style={style.colText}>{expense.date}</Text></Col>
-                        <Col>
-                        <TouchableOpacity
-                            style={style.update}
-                            onPress={() => navigation.navigate("updateExpense", { expense })}
-                        >
-                            <Text style={{ color: "white", fontSize: 12 }}>Actualizar</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={style.delete}
-                            onPress={() => deleteClient(expense.id)}
-                        >
-                            <Text style={{ color: "white", fontSize: 12 }}>Eliminar</Text>
-                        </TouchableOpacity>
-                        </Col>
-                    </Row>
-                    ))}
-                </Grid>
-                </ScrollView>
+      {/* Lista estilo lista de compras */}
+      <ScrollView contentContainerStyle={styles.listContainer}>
+        {data.map((expense) => (
+          <View key={expense.id} style={styles.listItem}>
+            <View style={styles.listItemLeft}>
+              <Text style={styles.listCategory}>{expense.category}</Text>
+              <Text style={styles.listDescription}>{expense.description}</Text>
             </View>
-    )
-}
-
-
-const style = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 50,
-        alignItems: "center",
-        backgroundColor: "#3b0a55"
-    },
-
-    title: {
-        fontSize: 36,
-        fontWeight: "bold",
-        color: "white",
-        marginBottom: 20,
-    },
-
-    createButton: {
-        backgroundColor: "#ffffff",
-        color: "#3b0a55",
-        borderRadius: 50,
-        fontSize: 40,
-        paddingHorizontal: 16,
-        paddingVertical: 8,
-        marginBottom: 20,
-        elevation: 3,
-        textAlign: "center",
-    },
-
-    search: {
-        flexDirection: "row",
-        alignItems: "center",
-        marginBottom: 20,
-        paddingHorizontal: 10,
-        width: "95%",
-        gap: 10
-    },
-
-    searchBar: {
-        flex: 1,
-        backgroundColor: "white",
-        borderRadius: 8,
-        paddingHorizontal: 10,
-        height: 40,
-        elevation: 2,
-    },
-
-    searchButton: {
-        backgroundColor: "#ffffff",
-        padding: 10,
-        borderRadius: 8,
-        elevation: 2,
-    },
-
-    select: {
-        backgroundColor: "#ffffff",
-        height: 40,
-        borderRadius: 8,
-        paddingHorizontal: 10,
-        borderWidth: 1,
-        borderColor: "#ccc"
-    }, 
-
-    name: {
-        fontSize: 15,
-        fontWeight: "bold",
-        marginVertical: 5,
-    },
-
-    button: {
-        backgroundColor: "#5e0acc",
-        width: "100%",
-        padding: 12,
-        borderRadius: 10,
-        alignItems: "center",
-        marginTop: 10,
-    },
-
-    input: {
-        borderRadius: 5,
-        fontSize: 15,
-        borderColor: "#aaa",
-        borderWidth: 1,
-        textAlign: "center",
-        width: "100%",
-        padding: 10,
-    },
-    
-  table: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 5,
-    marginTop: 20,
-    width: "95%",
-    alignSelf: "center",
-    elevation: 3,
+            <View style={styles.listItemRight}>
+              <Text style={styles.listAmount}>${expense.amount}</Text>
+              <Text style={styles.listDate}>{expense.date}</Text>
+              <View style={styles.buttonRow}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("updateExpense", { expense })
+                  }
+                  style={styles.updateButton}
+                >
+                  <Text style={styles.buttonText}>Actualizar</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => deleteClient(expense.id)}
+                  style={styles.deleteButton}
+                >
+                  <Text style={styles.buttonText}>Eliminar</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        ))}
+      </ScrollView>
+    </View>
+  );
+}const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F5F7FA",
+    paddingHorizontal: 16,
+    paddingTop: 50,
   },
-
-  rowHeader: {
-    backgroundColor: "#5e0acc",
-    paddingVertical: 10,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-  },
-
-  row: {
+  header: {
     flexDirection: "row",
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderColor: "#e0e0e0",
+    justifyContent: "space-between",
     alignItems: "center",
+    marginBottom: 20,
   },
-
-  zebraRow: {
-    backgroundColor: "#f9f9f9",
-  },
-
-  colText: {
-    color: "#333",
-    fontSize: 13,
-    textAlign: "center",
-  },
-
-  headerText: {
-    color: "white",
+  title: {
+    fontSize: 32,
     fontWeight: "bold",
-    textAlign: "center",
-    fontSize: 14,
+    color: "#002544",
   },
-
-  update: {
-    backgroundColor: "green",
-    padding: 5,
-    borderRadius: 5,
+  addButton: {
+    backgroundColor: "#002544",
+    borderRadius: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+  addButtonText: {
+    color: "#FFFFFF",
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  summaryCard: {
+    backgroundColor: "#002544",
+    borderRadius: 8,
+    padding: 16,
+    marginBottom: 20,
+  },
+  summaryTitle: {
+    color: "#FFFFFF",
+    fontSize: 16,
     marginBottom: 4,
-    alignItems: "center",
   },
-
-  delete: {
-    backgroundColor: "purple",
-    padding: 5,
-    borderRadius: 5,
-    alignItems: "center",
+  summaryAmount: {
+    color: "#FFFFFF",
+    fontSize: 28,
+    fontWeight: "bold",
+  },
+  listContainer: {
+    paddingBottom: 20,
+  },
+  listItem: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#FFFFFF",
+    padding: 16,
+    borderRadius: 8,
+    marginBottom: 12,
+    elevation: 2,
+  },
+  listLeft: {
+    flex: 1,
+    marginRight: 12,
+  },
+  listCategory: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#002544",
+  },
+  listDescription: {
+    fontSize: 14,
+    color: "#555555",
+    marginTop: 4,
+  },
+  listRight: {
+    alignItems: "flex-end",
+  },
+  listAmount: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#0052A0",
+  },
+  listDate: {
+    fontSize: 12,
+    color: "#888888",
+    marginBottom: 8,
+  },
+  buttonRow: {
+    flexDirection: "row",
+    gap: 8,
+    marginTop: 4,
+  },
+  updateButton: {
+    backgroundColor: "#0052A0",
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 4,
+  },
+  deleteButton: {
+    backgroundColor: "#7E003B", // Un morado oscuro para contraste
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    borderRadius: 4,
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    fontSize: 12,
   },
 });
+

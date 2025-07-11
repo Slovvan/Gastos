@@ -47,10 +47,10 @@ export default function UpdateExpense (){
                         <TextInput onChangeText={(text)=>{onchange("date", text)}} style={style.input} placeholder={expense.date}></TextInput>
                         
                         <TouchableOpacity onPress={()=>{updateExpense()}} style={style.button}>
-                            <Text style={style.button.textButton}>Actualizar</Text>
+                            <Text style={style.button.buttonText}>Actualizar</Text>
                         </TouchableOpacity>
-                         <TouchableOpacity onPress={()=>{navigation.navigate("dashboard")}}>
-                            <Text>Cancelar</Text>
+                         <TouchableOpacity onPress={()=>{navigation.navigate("dashboard")}} style={style.cancelButton}>
+                            <Text style={style.cancelButtonText}>Cancelar</Text>
                         </TouchableOpacity>
                     </View>
             </View>
@@ -58,57 +58,75 @@ export default function UpdateExpense (){
 }
 
 const style = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#3b0a55"
-    },
-
-    form: {
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "white",
-        padding: 60, 
-        borderRadius: "10%",
-        
-    },
-
-    title:{
-        fontSize: 38,
-        fontWeight: "bold",
+  container: {
+    flex: 1,
+    backgroundColor: "#002544ff",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingHorizontal: 20,
   },
 
-    name: {
-    
-        fontSize: 15,
-        fontWeight: "bold",
-        marginTop: 10,
-        marginBottom: 2
-    },
-
-    button: {
-        backgroundColor: "purple",
-        width: "100%",
-        padding: 10,
-        borderRadius: 10,
-        alignItems: "center",
-        marginTop: 10,
-        textButton:{
-        color: "white",
-        fontSize: 20,
-        fontWeight: "bold",
-        }
+  form: {
+    width: "100%",
+    maxWidth: 400,
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    padding: 24,
   },
 
-    input:{
-        borderRadius: 5,
-        fontSize: 15,
-        borderColor: "black",
-        borderWidth: 1,
-        textAlign: "center",
-        width: "100%",
-        height: "auto"
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#0c70c2ff",
+    marginBottom: 24,
+    textAlign: "center",
   },
 
-})
+  inputGroup: {
+    marginBottom: 16,
+    width: "100%",
+  },
+
+  label: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#333",
+    marginBottom: 6,
+  },
+
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    fontSize: 16,
+    backgroundColor: "#f9f9f9",
+    color: "#333",
+  },
+
+  button: {
+    backgroundColor: "#025aa1ff",
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: "center",
+    marginTop: 8,
+  },
+
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+
+  cancelButton: {
+    marginTop: 12,
+    alignItems: "center",
+  },
+
+  cancelButtonText: {
+    color: "#00447cff",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+});
